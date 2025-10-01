@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Niyojan AI - Business Potential</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS Variables for Color Palette */
+        :root {
+            --primary-blue: #00AEEF;
+            --primary-green: #6DBC6F;
+            --dark-blue-text: #0D2F4B;
+            --accent-purple: #8A5E9A;
+            --text-color: #333333;
+            --background-light: #FFFFFF;
+            --background-soft-gray: #F7F9FC;
+        }
+
+        /* General Body Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Section Styling */
+        section {
+            padding: 80px 0;
+        }
+        
+        section:nth-child(even) {
+            background-color: var(--background-soft-gray);
+        }
+
+        h1, h2, h3 {
+            color: var(--dark-blue-text);
+            font-weight: 700;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            border-radius: 2px;
+            margin: 15px auto 0;
+        }
+
+        p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+
+        /* --- Hero Section --- MODIFIED FOR CENTERING --- */
+        .hero {
+            /* Reduced overlay opacity so background image and content are visible */
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.45)), url('https://storage.googleapis.com/gemini-prod-uploads/2024/2/11/a/image_ac1392.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh; /* Changed to 100vh to fill the whole screen */
+            display: flex;
+            align-items: center;
+            justify-content: center; /* ADDED: To center content horizontally */
+            text-align: center;      /* ADDED: To center text inside the content block */
+        }
+
+        .hero-content {
+            max-width: 80%; /* Increased width for a better centered look */
+        }
+
+        .hero h1 {
+            text-align: center; /* CHANGED: from 'left' to 'center' */
+            background: -webkit-linear-gradient(45deg, var(--primary-blue), var(--dark-blue-text));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 3.5vw; /* Added responsive font size */
+            white-space: nowrap; /* Added to keep it on one line */
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--dark-blue-text);
+            font-weight: 300;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-green));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Revenue Model Section --- */
+        .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+
+        .revenue-card {
+            background: var(--background-light);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            border-top: 5px solid var(--primary-green);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .revenue-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .revenue-card h3 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            color: var(--dark-blue-text);
+        }
+        
+        .revenue-card .icon {
+            font-size: 3rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+
+        /* --- Market Approach & Chart Section --- */
+        .market-approach-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .chart-container {
+            width: 100%;
+            max-width: 400px;
+            height: 400px;
+        }
+
+        .market-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+        }
+
+        /* --- Tiers Section --- */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .tier-card {
+            background: var(--background-light);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tier-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .tier-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .tier-header h3 {
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .tier-header .tier-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            font-style: italic;
+        }
+        
+        .tier-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-grow: 1;
+        }
+
+        .tier-card ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        
+        .tier-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        #professional { border-top: 5px solid var(--primary-green); }
+        #professional li::before { color: var(--primary-green); }
+
+        #enterprise { border-top: 5px solid var(--primary-blue); }
+        #enterprise li::before { color: var(--primary-blue); }
+
+        #strategic { border-top: 5px solid var(--accent-purple); }
+        #strategic li::before { color: var(--accent-purple); }
+
+        .tier-positioning {
+            margin-top: 25px;
+            background: var(--background-soft-gray);
+            border-radius: 8px;
+            padding: 15px;
+        }
+        
+        .tier-positioning strong {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--dark-blue-text);
+        }
+
+        /* --- Impact Chart Section --- */
+        .impact-section {
+            background: linear-gradient(135deg, var(--dark-blue-text) 0%, #1c3d5e 100%);
+        }
+        
+        .impact-section h2, .impact-section p {
+            color: var(--background-light);
+        }
+        .impact-section h2::after {
+            background: var(--primary-green);
+        }
+        
+        .impact-chart-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* --- Animation --- */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 1024px) {
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .hero h1 { font-size: 5vw; } /* Responsive hero title for mobile */
+            h2 { font-size: 2rem; }
+            section { padding: 60px 0; }
+            .hero {
+                padding: 100px 0;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .market-approach-content {
+                flex-direction: column;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>🚆 Business Potential for Niyojan AI</h1>
+                <p>A powerful SaaS platform leveraging AI to optimize fleet management, enhance efficiency, and drive sustainable growth for global rail operators.</p>
+                <a href="#revenue" class="cta-button">Explore Our Tiers</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="revenue">
+            <div class="container">
+                <h2 class="fade-in">The Foundation for Growth</h2>
+                <div class="revenue-grid">
+                    <div class="revenue-card fade-in" style="transition-delay: 0.1s;">
+                        <div class="icon">🚇</div>
+                        <h3>SaaS Platform</h3>
+                        <p>Commercialized as a Software-as-a-Service (SaaS) platform—an industry benchmark for modern fleet management and continuous innovation.</p>
+                    </div>
+                    <div class="revenue-card fade-in" style="transition-delay: 0.2s;">
+                        <div class="icon">🚆🔄</div>
+                        <h3>Predictable ARR</h3>
+                        <p>Ensures long-term financial stability through a predictable Annual Recurring Revenue (ARR) model, building investor confidence.</p>
+                    </div>
+                    <div class="revenue-card fade-in" style="transition-delay: 0.3s;">
+                        <div class="icon">🛡</div>
+                        <h3>Mission-Critical Adoption</h3>
+                        <p>Metro operators have a perpetual need for efficiency, ensuring high customer retention, low churn, and sustainable, compounding growth.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="market-approach">
+            <div class="container">
+                <h2 class="fade-in">A Tiered Market Approach</h2>
+                <div class="market-approach-content">
+                    <div class="market-text fade-in">
+                        <p>To address the diverse needs of the rail industry, from regional metros to national authorities, Niyojan AI offers a flexible and scalable three-tiered model. This ensures that every operator can access the right level of digital transformation for their specific needs, creating a broad and stable customer base.</p>
+                    </div>
+                    <div class="chart-container fade-in" style="transition-delay: 0.2s;">
+                        <canvas id="marketTierChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="tiers">
+            <div class="container">
+                <h2 class="fade-in">Our Platform Tiers</h2>
+                <div class="tiers-grid">
+                    <div class="tier-card fade-in" id="professional">
+                        <div class="tier-header">
+                            <h3>🟢 Professional Tier</h3>
+                            <p class="tier-subtitle">The Digital Foundation</p>
+                        </div>
+                        <ul>
+                            <li><strong>AI-Driven Induction Planning:</strong> Based on 6 key variables (Fitness, Job-Cards, Branding, Mileage, etc.).</li>
+                            <li><strong>Real-Time Operations Dashboard:</strong> Centralized view of fleet status.</li>
+                            <li><strong>Guided Data Upload:</strong> Simple CSV-based system replacing spreadsheets.</li>
+                            <li><strong>Explainable AI:</strong> Clear reasoning for every recommendation.</li>
+                            <li><strong>Standard Performance Reports:</strong> Key metrics for compliance and efficiency.</li>
+                        </ul>
+                        <div class="tier-positioning">
+                            <strong>Positioning:</strong> An "Operational Control Tower" delivering immediate ROI by reducing errors and saving supervisor time.
+                        </div>
+                    </div>
+
+                    <div class="tier-card fade-in" id="enterprise" style="transition-delay: 0.2s;">
+                        <div class="tier-header">
+                            <h3>🔵 Enterprise Tier</h3>
+                            <p class="tier-subtitle">The Optimization Engine</p>
+                        </div>
+                        <ul>
+                            <li><strong>All Professional Features +</strong></li>
+                            <li><strong>Real-Time API Integration:</strong> Connects with ERP, IoT, HR systems, IBM Maximo, etc.</li>
+                            <li><strong>Predictive Maintenance:</strong> Reduces costs by up to 20% and downtime by 15%.</li>
+                            <li><strong>What-If Scenario Simulation:</strong> Test impacts of disruptions like depot bay unavailability.</li>
+                            <li><strong>Executive Analytics Dashboard:</strong> High-level views of cost savings and SLA compliance.</li>
+                            <li><strong>Premium 24/7 Support:</strong> Dedicated account manager for strategic success.</li>
+                        </ul>
+                        <div class="tier-positioning">
+                            <strong>Positioning:</strong> Moving from efficiency to strategic optimization with proven cost savings for established operators like KMRL.
+                        </div>
+                    </div>
+
+                    <div class="tier-card fade-in" id="strategic" style="transition-delay: 0.4s;">
+                        <div class="tier-header">
+                            <h3>🔴 Strategic Command Tier</h3>
+                            <p class="tier-subtitle">The Digital Twin & Ecosystem Integrator</p>
+                        </div>
+                        <ul>
+                           <li><strong>All Enterprise Features +</strong></li>
+                            <li><strong>Multi-Modal Transport Integration:</strong> Metro, feeder buses, water metro, etc.</li>
+                            <li><strong>Digital Twin Simulation:</strong> Model new lines or city-wide disruptions before implementation.</li>
+                            <li><strong>Automated Shunting & Depot Optimization:</strong> Reduces energy, time, and safety risks.</li>
+                            <li><strong>National Compliance & Policy Module:</strong> Predictive monitoring for regulatory adherence.</li>
+                            <li><strong>Strategic Partnership:</strong> On-site consulting and advisory board participation.</li>
+                        </ul>
+                        <div class="tier-positioning">
+                            <strong>Positioning:</strong> Designed for city-wide and national smart mobility initiatives, supporting governments and authorities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="impact-section">
+            <div class="container">
+                <h2 class="fade-in">Measurable Impact, Proven ROI</h2>
+                <p class="fade-in" style="text-align: center; max-width: 800px; margin: 0 auto 50px auto;">The Enterprise Tier's predictive capabilities directly translate into significant operational and financial benefits. By anticipating maintenance needs and optimizing schedules, Niyojan AI transforms reactive operations into a proactive, cost-saving powerhouse.</p>
+                <div class="impact-chart-container fade-in" style="transition-delay: 0.2s;">
+                    <canvas id="impactChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            // --- Fade-in Animation on Scroll ---
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -50px 0px"
+            };
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // --- Chart.js Implementation ---
+            let marketChartCreated = false;
+            let impactChartCreated = false;
+            const createMarketChart = () => {
+                const ctx = document.getElementById('marketTierChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Professional Tier', 'Enterprise Tier', 'Strategic Command Tier'],
+                        datasets: [{
+                            label: 'Market Focus Distribution',
+                            data: [45, 45, 10],
+                            backgroundColor: ['rgba(109, 188, 111, 0.8)','rgba(0, 174, 239, 0.8)','rgba(138, 94, 154, 0.8)'],
+                            borderColor: ['rgba(109, 188, 111, 1)','rgba(0, 174, 239, 1)','rgba(138, 94, 154, 1)'],
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { font: { family: "'Poppins', sans-serif", size: 14 } }
+                            }
+                        },
+                        animation: { duration: 1500, easing: 'easeInOutQuart' }
+                    }
+                });
+            };
+            const createImpactChart = () => {
+                const ctx = document.getElementById('impactChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Unplanned Downtime', 'Maintenance Costs', 'Scheduling Errors'],
+                        datasets: [{
+                            label: 'Traditional Methods',
+                            data: [100, 100, 100],
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }, {
+                            label: 'With Niyojan AI (Reduction)',
+                            data: [85, 80, 20],
+                            backgroundColor: 'rgba(109, 188, 111, 0.8)',
+                            borderColor: 'rgba(109, 188, 111, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: { beginAtZero: true, ticks: { callback: function(value) { return value + '%' }, color: '#333' } },
+                            x: { ticks: { color: '#333' } }
+                        },
+                        plugins: {
+                            legend: { labels: { color: '#333', font: { family: "'Poppins', sans-serif" } } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        var label = context.dataset.label || '';
+                                        if (label) { label += ': '; }
+                                        if (context.parsed && context.parsed.y !== null) {
+                                            if (context.datasetIndex === 1) {
+                                                var reduction = Math.round(100 - context.parsed.y);
+                                                label += reduction + '% reduction';
+                                            } else {
+                                                label += '100% (Baseline)';
+                                            }
+                                        }
+                                        return label;
+                                    }
+                                }
+                            }
+                        },
+                        animation: { duration: 2000, easing: 'easeOutBounce' }
+                    }
+                });
+            };
+            const chartObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (entry.target.id === 'marketTierChart' && !marketChartCreated) {
+                            createMarketChart();
+                            marketChartCreated = true;
+                            observer.unobserve(entry.target);
+                        }
+                        if (entry.target.id === 'impactChart' && !impactChartCreated) {
+                            createImpactChart();
+                            impactChartCreated = true;
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, { threshold: 0.5 });
+            chartObserver.observe(document.getElementById('marketTierChart'));
+            chartObserver.observe(document.getElementById('impactChart'));
+        });
+    </script>
+</body>
+</html>
